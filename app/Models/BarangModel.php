@@ -12,4 +12,19 @@ class BarangModel extends Model
 
         return $query->getResult();
     }
+    function simpanData($table, $data)
+    {
+        $this->db->table($table)->insert($data);
+        return true;
+    }
+    function editData($table, $data, $where)
+    {
+        $this->db->table($table)->update($data, $where);
+        return true;
+    }
+    function hapusData($table, $where)
+    {
+        $this->db->table($table)->delete($where);
+        return true;
+    }
 }
