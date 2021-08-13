@@ -7,12 +7,15 @@ use App\Models\BarangModel;
 
 class BarangController extends Controller
 {
-    protected $mbarang;
+    protected $mbarang, $pager;
     protected $table = "barang";
 
     public function __construct()
     {
         $this->mbarang = new BarangModel();
+        $this->pager = \Config\Services::pager();
+
+        $this->mbarang->setTable($this->table);
     }
 
     public function index()
@@ -21,8 +24,9 @@ class BarangController extends Controller
 
         $data = array(
             'dataBarang' => $getdata,
+            'barangPager' => $this->mbarang->paginate(10, 'barang'),
+            'pager' => $this->mbarang->pager,
         );
-
         return view('tokokomputer/barang', $data);
     }
 

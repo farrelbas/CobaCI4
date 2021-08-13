@@ -62,34 +62,39 @@
                 </tr>
                 <tr>
                     <?php $no = 1;
-                    foreach ($dataBarang as $row) : ?>
+                    foreach ($barangPager as $row) : ?>
                         <td class="info text-center">
                             <?= $no++; ?>
                         </td>
                         <td class="info text-center">
-                            <?= $row->kode_barang; ?>
+                            <?= $row['kode_barang']; ?>
                         </td>
                         <td class="info text-center">
-                            <?= $row->barang; ?>
+                            <?= $row['barang']; ?>
                         </td>
                         <td class="info text-center">
-                            <?= $row->stok; ?>
+                            <?= $row['stok']; ?>
                         </td>
                         <td class="info text-center">
-                            <?= $row->harga; ?>
+                            <?= $row['harga']; ?>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#modal-edit<?= $row->kode_barang; ?>">
+                            <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#modal-edit<?= $row['kode_barang']; ?>">
                                 Edit Data
                             </button>
-                            <a class="btn btn-sm btn-danger" onclick="return confirm('Apakah Data Ingin Di Hapus?')" href="<?php echo base_url('/BarangController/hapus'); ?>/<?= $row->kode_barang; ?>">Hapus</a>
+                            <a class="btn btn-sm btn-danger" onclick="return confirm('Apakah Data Ingin Di Hapus?')" href="<?php echo base_url('/BarangController/hapus'); ?>/<?= $row['kode_barang']; ?>">Hapus</a>
                         </td>
                 </tr>
             <?php endforeach ?>
             </table>
         </div>
+        <div class="container">
+            <nav aria-label="Page navigation example">
+                <?= $pager->links('barang', 'customPager') ?>
+            </nav>
+        </div>
     </section>
-    
+
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -163,12 +168,6 @@
             </div>
         </div>
     <?php endforeach ?>
-
-
-
-
-
-
 </body>
 
 </html>

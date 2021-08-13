@@ -6,6 +6,7 @@ use CodeIgniter\Model;
 
 class BarangModel extends Model
 {
+    protected $table;
     public function getdata()
     {
         $query = $this->db->query("SELECT * FROM barang ORDER BY barang ASC");
@@ -26,5 +27,18 @@ class BarangModel extends Model
     {
         $this->db->table($table)->delete($where);
         return true;
+    }
+
+
+    /**
+     * Set the value of table
+     *
+     * @return  self
+     */
+    public function setTable($table)
+    {
+        $this->table = $table;
+
+        return $this;
     }
 }
