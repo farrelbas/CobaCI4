@@ -41,4 +41,20 @@ class BarangModel extends Model
 
         return $this;
     }
+
+    function cekData($table, $where)
+    {
+        $builder = $this->db->table($table);
+        $builder->where($where);
+
+        return $builder->countAllResults();
+    }
+
+    function getDataId($table, $where)
+    {
+        $builder = $this->db->table($table);
+        $builder->where($where);
+
+        return $builder->get()->getResult();
+    }
 }
