@@ -8,7 +8,7 @@ class Home extends BaseController
 
 	public function __construct()
 	{
-		$this->load->library('session');
+		// $this->load->library('session');
 		$this->session = \Config\Services::session();
 	}
 	public function index()
