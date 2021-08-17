@@ -6,6 +6,8 @@ class ImageUpload extends BaseController
 {
     public function index()
     {
+        $db = \Config\Database::connect();
+
         if ($this->request->getMethod() == 'post') {
             $rules = [
                 'image' => [
@@ -21,20 +23,21 @@ class ImageUpload extends BaseController
             if ($this->validate($rules)) {
 
                 $image = $this->request->getFile('image');
-                // $fileName = time() . $image->getClientName();
-                // $image->move('uploads', $fileName);
-                $image->move('uploads');
+                $fileName = time() . $image->getClientName();
+                $image->move('uploads', $fileName);
+                // $image->move('uploads');
 
-                // $db->table('gallery')->insert([
-                //     'keterangan' => $this->request->getPost('keterangan'),
-                //     'nama_file' => $fileName
-                // ]);
+                $db->table('gallery')->insert([
+                    'keterangan' => $this->request->getPost('keterangan'),
+                    'nama_file' => $fileName
+                ]);
 
                 return redirect()->back()->with('success', 'Data berhasil disimpan');
             }
 
             return redirect()->back()->withInput()->with('validation', $this->validator->getErrors());
         }
+        $data['images'] = $db->table('gallery')->get()->getResult();
         // if ($this->validate($rules)) {
 
         //     $image = $this->request->getFile('image');
@@ -50,6 +53,6 @@ class ImageUpload extends BaseController
         // }
 
         // return redirect()->back()->withInput()->with('validation', $this->validator->getErrors());
-        return View('tokokomputer/upload');
+        return View('tokokomputer/upload', $data);
     }
 }
